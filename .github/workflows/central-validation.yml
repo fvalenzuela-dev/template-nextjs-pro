@@ -40,7 +40,7 @@ jobs:
   build_and_test:
     runs-on: ubuntu-latest
     steps:
-      - name:   
+      - name: Run Tests (Jest)
       run: npm run test -- --coverage
 
       - name: Subir Cobertura a Codacy
