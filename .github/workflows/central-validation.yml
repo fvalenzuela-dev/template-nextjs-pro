@@ -43,8 +43,8 @@ jobs:
       - name: Run Tests (Jest)
         run: npm run test -- --coverage
 
-      - name: Subir Cobertura a Codacy
-        uses: kuroroluzbell/.github/.github/workflows/codacy-coverage.yml@main
-        with:
-          # La ruta donde Jest por defecto deja el archivo LCOV
-          coverage_report_path: "coverage/lcov.info"
+  cobertura_codacy:
+    needs: [build_and_test]
+    uses: kuroroluzbell/.github/.github/workflows/codacy-coverage.yml@main
+    with:
+      coverage_report_path: "coverage/lcov.info"
