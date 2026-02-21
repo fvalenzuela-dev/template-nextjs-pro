@@ -48,5 +48,3 @@ jobs:
         with:
           # La ruta donde Jest por defecto deja el archivo LCOV
           coverage_report_path: "coverage/lcov.info"
-        secrets:
-          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
