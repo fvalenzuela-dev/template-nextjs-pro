@@ -33,7 +33,7 @@ jobs:
   #  needs: [analisis_seguridad]
   #  uses: kuroroluzbell/.github/.github/workflows/version-check.yml@main
   #  with:
-  #    version_file: "pom.xml"
+  #    version_file: "pom.xml "
   #  secrets:
   #    GITHUB_TOKEN_CUSTOM: ${{ secrets.GITHUB_TOKEN }}
 
