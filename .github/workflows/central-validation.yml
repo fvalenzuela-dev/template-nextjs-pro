@@ -14,6 +14,9 @@ jobs:
   # PASO 1: Análisis de Código (Codacy)
   # ----------------------------------------------------
   analisis_seguridad:
+    permissions:
+      contents: read
+      security-events: write
     name: Revisión Codacy
     uses: kuroroluzbell/.github/.github/workflows/codacy-analysis.yml@main
     secrets:
