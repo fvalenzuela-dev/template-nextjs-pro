@@ -32,7 +32,7 @@ jobs:
     with:
       version_file: "pom.xml"
     secrets:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN_CUSTOM: ${{ secrets.GITHUB_TOKEN }}
 
   # ----------------------------------------------------
   # PASO 3: validar coberturas
