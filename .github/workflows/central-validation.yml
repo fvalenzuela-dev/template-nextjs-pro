@@ -23,7 +23,7 @@ jobs:
   #    CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
 
   # ----------------------------------------------------
-  # PASO 2: Revisión de Versión (Solo en Pull Requests )
+  # PASO 2: Revisión de Versión (Solo en Pull Requests)
   # ----------------------------------------------------
   verificar_version:
     name: Control de Versiones
