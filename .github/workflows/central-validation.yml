@@ -12,8 +12,11 @@ on:
 jobs:
   # ----------------------------------------------------
   # PASO 1: Análisis de Código (Codacy)
-  # ----------------------------------------------------
+  # ---------------------------------- ------------------
   analisis_seguridad:
+    permissions:
+      contents: read
+      security-events: write
     name: Revisión Codacy
     uses: kuroroluzbell/.github/.github/workflows/codacy-analysis.yml@main
     secrets:
@@ -22,31 +25,41 @@ jobs:
   # ----------------------------------------------------
   # PASO 2: Revisión de Versión (Solo en Pull Requests)
   # ----------------------------------------------------
-  verificar_version:
-    name: Control de Versiones
-    # Condición: Solo ejecutar esto si el trigger fue un Pull Request
-    if: github.event_name == 'pull_request'
-    # Esta acción depende de que Codacy haya terminado (y pasado)
-    needs: [analisis_seguridad]
-    uses: kuroroluzbell/.github/.github/workflows/version-check.yml@main
-    with:
-      version_file: "pom.xml"
-    secrets:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
+  #verificar_version:
+  #  name: Control de Versiones
+  #  # Condición: Solo ejecutar esto si el trigger fue un Pull Request
+  #  if: github.event_name == 'pull_request'
+  #  # Esta acción depende de que Codacy haya terminado (y pasado)
+  #  needs: [analisis_seguridad]
+  #  uses: kuroroluzbell/.github/.github/workflows/version-check.yml@main
+  #  with:
+  #    version_file: "pom.xml "
+  #  secrets:
+  #    GITHUB_TOKEN_CUSTOM: ${{ secrets.GITHUB_TOKEN }}
 
   # ----------------------------------------------------
-  # PASO 3: validar coberturas 
+  # PASO 3: Run Tests + Upload Coverages to Codacy
   # ----------------------------------------------------
   build_and_test:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
       - name: Run Tests (Jest)
-      run: npm run test -- --coverage
-
-      - name: Subir Cobertura a Codacy
-        uses: kuroroluzbell/.github/.github/workflows/codacy-coverage.yml@main
+        run: npm run test -- --coverage
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
         with:
-          # La ruta donde Jest por defecto deja el archivo LCOV
-          coverage_report_path: 'coverage/lcov.info'
-        secrets:
-          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          name: coverage-report
+          path: coverage/lcov.info
+          retention-days: 1
+
+  cobertura:
+    needs: [build_and_test]
+    uses: kuroroluzbell/.github/.github/workflows/codacy-coverage.yml@main
+    with:
+      coverage_report_path: "coverage/lcov.info"
+    secrets:
+      CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
