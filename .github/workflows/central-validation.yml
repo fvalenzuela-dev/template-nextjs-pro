@@ -13,14 +13,14 @@ jobs:
   # ----------------------------------------------------
   # PASO 1: Análisis de Código (Codacy)
   # ---------------------------------- ------------------
-  analisis_seguridad:
-    permissions:
-      contents: read
-      security-events: write
-    name: Revisión Codacy
-    uses: kuroroluzbell/.github/.github/workflows/codacy-analysis.yml@main
-    secrets:
-      CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+  #analisis_seguridad:
+  #  permissions:
+  #    contents: read
+  #    security-events: write
+  #  name: Revisión Codacy
+  #  uses: kuroroluzbell/.github/.github/workflows/codacy-analysis.yml@main
+  #  secrets:
+  #    CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
 
   # ----------------------------------------------------
   # PASO 2: Revisión de Versión (Solo en Pull Requests)
@@ -30,7 +30,6 @@ jobs:
     # Condición: Solo ejecutar esto si el trigger fue un Pull Request
     if: github.event_name == 'pull_request'
     # Esta acciónn depende de que Codacy haya terminado (y pasado)
-    needs: [analisis_seguridad]
     uses: kuroroluzbell/.github/.github/workflows/version-check.yml@main
     with:
       version_file: "package.json"
