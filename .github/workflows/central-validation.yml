@@ -10,21 +10,6 @@ on:
       - main
 
 jobs:
-  # ----------------------------------------------------
-  # PASO 1: Análisis de Código (Codacy)
-  # ---------------------------------- ------------------
-  #analisis_seguridad:
-  #  permissions:
-  #    contents: read
-  #    security-events: write
-  #  name: Revisión Codacy
-  #  uses: kuroroluzbell/.github/.github/workflows/codacy-analysis.yml@main
-  #  secrets:
-  #    CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
-
-  # ----------------------------------------------------
-  # PASO 2: Revisión de Versión (Solo en Pull dRequests)
-  # ----------------------------------------------------
   verificar_version:
     name: Control de Versiones
     if: github.event_name == 'pull_request' || github.event_name == 'push'
@@ -36,7 +21,7 @@ jobs:
       GITHUB_TOKEN_CUSTOM: ${{ secrets.GITHUB_TOKEN }}
 
   # ----------------------------------------------------
-  # PASO 3: Run Tests + Upload Coverages to Codacy
+  # PASO 2: Run Tests + Upload Coverages to Codacy
   # ----------------------------------------------------
   build_and_test:
     runs-on: ubuntu-latest
