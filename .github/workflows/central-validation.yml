@@ -47,6 +47,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Install dependencies
         run: npm install
+      - name: List files for coverage
+        run: ls -R
       - name: Run Tests (Jest)
         working-directory: ./
         run: npm run test -- --coverage
