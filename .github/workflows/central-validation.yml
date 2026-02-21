@@ -51,3 +51,5 @@ jobs:
     uses: kuroroluzbell/.github/.github/workflows/codacy-coverage.yml@main
     with:
       coverage_report_path: "coverage/lcov.info"
+     secrets:
+       CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
