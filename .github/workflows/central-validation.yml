@@ -38,7 +38,7 @@ jobs:
   #    GITHUB_TOKEN_CUSTOM: ${{ secrets.GITHUB_TOKEN }}
 
   # ----------------------------------------------------
-  # PASO 3: Run Tests + Upload Coverages
+  # PASO 3: Run Tests + Upload Cover ages
   # ----------------------------------------------------
   build_and_test:
     runs-on: ubuntu-latest
