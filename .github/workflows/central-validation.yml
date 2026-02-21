@@ -29,7 +29,7 @@ jobs:
     name: Control de Versiones
     # Condición: Solo ejecutar esto si el trigger fue un Pull Request
     if: github.event_name == 'pull_request'
-    # Esta acción depende de que Codacy haya terminado (y pasado)
+    # Esta acciónn depende de que Codacy haya terminado (y pasado)
     needs: [analisis_seguridad]
     uses: kuroroluzbell/.github/.github/workflows/version-check.yml@main
     with:
