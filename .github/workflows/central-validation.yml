@@ -50,13 +50,12 @@ jobs:
       - name: List files for coverage
         run: ls -R
       - name: Run Tests (Jest)
-        working-directory: ./
         run: npm run test -- --coverage
 
   cobertura_codacy:
     needs: [build_and_test]
     uses: kuroroluzbell/.github/.github/workflows/codacy-coverage.yml@main
     with:
-      coverage_report_path: "./coverage/lcov.info"
+      coverage_report_path: "coverage/lcov.info"
     secrets:
       CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
