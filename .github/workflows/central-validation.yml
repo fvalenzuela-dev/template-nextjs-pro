@@ -38,7 +38,7 @@ jobs:
       GITHUB_TOKEN_CUSTOM: ${{ secrets.GITHUB_TOKEN }}
 
   # ----------------------------------------------------
-  # PASO 3: validar coberturas
+  # PASO 3: validar coberturass
   # ----------------------------------------------------
   build_and_test:
     runs-on: ubuntu-latest
