@@ -30,7 +30,7 @@ jobs:
     # Condición: Solo ejecutar esto si el trigger fue un Pull Request
     if: github.event_name == 'pull_request' || github.event_name == 'push'
     # Esta acciónn depende de que Codacy haya terminado (y pasado)
-    uses: kuroroluzbell/.github/.github/workflows/version-check.yml@main
+    uses: kuroroluzbell/.github/.github/workflows/version-check-new.yml@main
     with:
       version_file: "package.json"
     secrets:
