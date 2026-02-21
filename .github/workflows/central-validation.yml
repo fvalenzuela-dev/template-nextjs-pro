@@ -11,7 +11,7 @@ on:
 
 jobs:
   # ----------------------------------------------------
-  # PASO 1: Análisis de Código (Codacy )
+  # PASO 1: Análisis de Código (Codacy)
   # ----------------------------------------------------
   #analisis_seguridad:
   #  permissions:
