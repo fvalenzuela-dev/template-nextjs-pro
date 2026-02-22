@@ -4,11 +4,10 @@ on:
   push:
     branches:
       - main
-      - qa
 
 jobs:
   build_and_deploy:
-    uses: kuroroluzbell/.github/.github/workflows/gcp-build-deploy.yml@main
+    uses: fvalenzuela-dev/.github/workflows/gcp-build-deploy.yml@main
     with:
       image_name: "mi-app-next"
       dockerfile_path: "./Dockerfile"
