@@ -13,7 +13,7 @@ jobs:
   verificar_version:
     name: Control de Versiones
     if: github.event_name == 'pull_request' || github.event_name == 'push'
-    uses: fvalenzuela-dev/.github/workflows/version-check-new.yml@main
+    uses: fvalenzuela-dev/.github/.github/workflows/version-check-new.yml@main
     with:
       version_file: "package.json"
       base_branch: "main"
@@ -41,7 +41,7 @@ jobs:
 
   cobertura:
     needs: [build_and_test]
-    uses: fvalenzuela-dev/.github/workflows/codacy-coverage.yml@main
+    uses: fvalenzuela-dev/.github/.github/workflows/codacy-coverage.yml@main
     with:
       coverage_report_path: "coverage/lcov.info"
     secrets:
