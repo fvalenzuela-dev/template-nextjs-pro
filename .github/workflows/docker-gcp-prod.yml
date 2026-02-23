@@ -11,10 +11,10 @@ jobs:
     with:
       image_name: "mi-app-next-prod" # nombre de la imagen que se va a generar
       dockerfile_path: "./Dockerfile" # ruta al Dockerfile en el repositorio
-      artifact_registry_region: ${{ secrets.GCP_REGION }} # región donde se encuentra el Artifact Registry
-      artifact_registry_repository: ${{ secrets.GCP_FOLDER_ARTIFACT_REGISTRY }} #carpeta contenedora en artifact registry
+      artifact_registry_region: "us-central1"
+      artifact_registry_repository: "app-frontend-react-repo"
       cloudrun_service: "dev-deploy" # nombre del servicio en Cloud Run
-      cloudrun_region: ${{ secrets.GCP_REGION }} # regiónn donde se va a desplegar el servicio
+      cloudrun_region: "us-central1"
     secrets:
       gcp_project_id: ${{ secrets.GCP_PROJECT_ID_PROD }}
       gcp_workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER_PROD }}
