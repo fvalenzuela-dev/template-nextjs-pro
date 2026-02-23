@@ -1,58 +1,71 @@
 # ==========================================
-# 1. VARIABLES - CONFIGURA ESTO
+# 1. VARIABLES - AJUSTA ESTOS VALORES
 # ==========================================
-PROJECT_ID="xxxxx-xxxxxx-xxxxx"
+PROJECT_ID="xxxxxxxx-dev-deploy"
 REGION="us-central1"
-POOL_ID="github-frontend-pool"
-PROVIDER_ID="github-frontend-provider"
+POOL_ID="github-frontend-pol-dev"
+PROVIDER_ID="github-frontend-provider-dev"
 REPO_FULL_NAME="fvalenzuela-dev/template-nextjs-pro"
-SA_NAME="github-deploy-prod-sa" 
-REPO_ARTIFACT="app-frontend-react-repo"
+SA_NAME="github-deploy-sa-frontend-dev"
+REPO_ARTIFACT="frontend-react-repo-dev"
+
+# Obtener el número de proyecto automáticamente
+PROJECT_NUMBER=$(gcloud projects describe ${PROJECT_ID} --format='value(projectNumber)')
+SA_EMAIL="${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
 
 # ==========================================
-# 2. EJECUCIÓN DE COMANDOS
+# 2. IDENTIDAD Y FEDERACIÓN (WIF)
 # ==========================================
 
-# Crear la Service Account
+# Crear Service Account
 gcloud iam service-accounts create ${SA_NAME} --project=${PROJECT_ID}
 
-# Crear el Workload Identity Pool
+# Crear Pool
 gcloud iam workload-identity-pools create ${POOL_ID} \
-    --location="global" --project=${PROJECT_ID}
+    --location="global" --project=${PROJECT_ID} || true
 
-# Crear el Provider OIDC con filtro de seguridad por Owner
+# Crear Provider
 gcloud iam workload-identity-pools providers create-oidc ${PROVIDER_ID} \
     --location="global" \
     --workload-identity-pool=${POOL_ID} \
     --issuer-uri="https://token.actions.githubusercontent.com" \
     --attribute-mapping="google.subject=assertion.sub,attribute.repository=assertion.repository,attribute.repository_owner=assertion.repository_owner" \
     --attribute-condition="attribute.repository_owner == 'fvalenzuela-dev'" \
-    --project=${PROJECT_ID}
+    --project=${PROJECT_ID} || true
 
-# Vincular la Service Account específicamente al repositorio de GitHub
-PROJECT_NUMBER=$(gcloud projects describe ${PROJECT_ID} --format='value(projectNumber)')
-
-gcloud iam service-accounts add-iam-policy-binding ${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com \
+# Vincular SA con el Repositorio específico
+gcloud iam service-accounts add-iam-policy-binding ${SA_EMAIL} \
     --role="roles/iam.workloadIdentityUser" \
     --member="principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL_ID}/attribute.repository/${REPO_FULL_NAME}" \
     --project=${PROJECT_ID}
 
-# Crear el repositorio en Artifact Registry
-gcloud artifacts repositories create ${REPO_ARTIFACT} \
-    --repository-format=docker --location=${REGION} --project=${PROJECT_ID}
+# ==========================================
+# 3. PERMISOS DE RECURSOS (Artifact + Cloud Run)
+# ==========================================
 
-# Asignar permisos de escritura en el Registry a la Service Account
+# Crear e integrar Artifact Registry
+gcloud artifacts repositories create ${REPO_ARTIFACT} \
+    --repository-format=docker --location=${REGION} --project=${PROJECT_ID} || true
+
 gcloud artifacts repositories add-iam-policy-binding ${REPO_ARTIFACT} \
     --location=${REGION} \
-    --member="serviceAccount:${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com" \
+    --member="serviceAccount:${SA_EMAIL}" \
     --role="roles/artifactregistry.writer" \
     --project=${PROJECT_ID}
 
-# ==========================================
-# 3. DATOS PARA TU YAML DE GITHUB
-# ==========================================
+# Permisos para administrar Cloud Run
+gcloud projects add-iam-policy-binding ${PROJECT_ID} \
+    --member="serviceAccount:${SA_EMAIL}" \
+    --role="roles/run.admin"
+
+# Permiso para usar la cuenta de servicio por defecto de Compute (necesario para desplegar)
+gcloud iam service-accounts add-iam-policy-binding ${PROJECT_NUMBER}-compute@developer.gserviceaccount.com \
+    --member="serviceAccount:${SA_EMAIL}" \
+    --role="roles/iam.serviceAccountUser" \
+    --project=${PROJECT_ID}
+
 echo "--------------------------------------------------------"
-echo "COPIA ESTOS VALORES EN TU GITHUB ACTIONS:"
-echo "workload_identity_provider: projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL_ID}/providers/${PROVIDER_ID}"
-echo "service_account: ${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
+echo "CONFIGURACIÓN COMPLETADA"
+echo "gcp_workload_identity_provider: projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL_ID}/providers/${PROVIDER_ID}"
+echo "Service Account: ${SA_EMAIL}"
 echo "--------------------------------------------------------"

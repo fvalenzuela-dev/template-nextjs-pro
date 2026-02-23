@@ -15,8 +15,8 @@ jobs:
       image_name: "mi-app-next-dev"
       dockerfile_path: "./Dockerfile"
       artifact_registry_region: "us-central1"
-      artifact_registry_repository: "app-frontend-react-repo"
-      cloudrun_service: "dev-deploy"
+      artifact_registry_repository: "frontend-react-repo-dev"
+      cloudrun_service: "mi-app-next-dev-deploy"
       cloudrun_region: "us-central1"
     secrets:
       gcp_project_id: ${{ secrets.GCP_PROJECT_ID_DEV }}
