@@ -38,6 +38,12 @@ jobs:
       id-token: write
 
     steps:
+      - name: Debug secrets
+        run: |
+          echo "project_id: ${{ secrets.gcp_project_id }}"
+          echo "workload_provider: ${{ secrets.gcp_workload_identity_provider }}"
+          echo "service_account: ${{ secrets.gcp_service_account }}"
+
       - name: Checkout
         uses: actions/checkout@v4
 
