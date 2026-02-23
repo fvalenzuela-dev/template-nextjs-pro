@@ -10,7 +10,7 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    uses: ./.github/workflows/gcp-build-deploy.yml
+    uses: fvalenzuela-dev/.github/.github/workflows/build-and-push-docker-gcp.yml@main
     with:
       image_name: "mi-app-next-dev"
       dockerfile_path: "./Dockerfile"
