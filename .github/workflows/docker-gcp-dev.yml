@@ -7,12 +7,15 @@ on:
 
 jobs:
   build_and_deploy:
-    uses: fvalenzuela-dev/.github/.github/workflows/build-and-push-docker-gcp.yml@main
+    permissions:
+      contents: read
+      id-token: write
+    uses: ./.github/workflows/gcp-build-deploy.yml
     with:
       image_name: "mi-app-next-dev"
       dockerfile_path: "./Dockerfile"
       artifact_registry_region: "us-central1"
-      artifact_registry_repository: "app-frontend-react-repo"
+      artifact_registry_repository: "nextjs-apps"
       cloudrun_service: "dev-deploy"
       cloudrun_region: "us-central1"
     secrets:
