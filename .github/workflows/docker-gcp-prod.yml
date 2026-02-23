@@ -14,7 +14,7 @@ jobs:
       artifact_registry_region: ${{ secrets.GCP_ARTIFACT_REGISTRY_REGION }} # región donde se encuentra el Artifact Registry
       artifact_registry_repository: ${{ secrets.GCP_FOLDER_ARTIFACT_REGISTRY }} #carpeta contenedora en artifact registry
       cloudrun_service: "dev-deploy" # nombre del servicio en Cloud Run
-      cloudrun_region: ${{ secrets.GCP_CLOUD_RUN_REGION }} # región donde se va a desplegar el servicio
+      cloudrun_region: ${{ secrets.GCP_CLOUD_RUN_REGION }} # regiónn donde se va a desplegar el servicio
     secrets:
       gcp_project_id: ${{ secrets.GCP_PROJECT_ID_PROD }}
       gcp_workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER_PROD }}
