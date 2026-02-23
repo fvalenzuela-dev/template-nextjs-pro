@@ -7,13 +7,13 @@ on:
 
 jobs:
   build_and_deploy:
-    uses: fvalenzuela-dev/.github/.github/workflows/gcp-build-deploy.yml@main
+    uses: fvalenzuela-dev/.github/.github/workflows/build-and-push-docker-gcp.yml@main
     with:
       image_name: "mi-app-next-prod" # nombre de la imagen que se va a generar
       dockerfile_path: "./Dockerfile" # ruta al Dockerfile en el repositorio
       artifact_registry_region: "us-central1"
       artifact_registry_repository: "app-frontend-react-repo"
-      cloudrun_service: "dev-deploy" # nombre del servicio en Cloud Run
+      cloudrun_service: "prod-deploy" # nombre del servicio en Cloud Run
       cloudrun_region: "us-central1"
     secrets:
       gcp_project_id: ${{ secrets.GCP_PROJECT_ID_PROD }}
