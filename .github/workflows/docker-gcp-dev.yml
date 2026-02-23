@@ -15,7 +15,7 @@ jobs:
       image_name: "mi-app-next-dev"
       dockerfile_path: "./Dockerfile"
       artifact_registry_region: "us-central1"
-      artifact_registry_repository: "nextjs-apps"
+      artifact_registry_repository: "app-frontend-react-repo"
       cloudrun_service: "dev-deploy"
       cloudrun_region: "us-central1"
     secrets:
