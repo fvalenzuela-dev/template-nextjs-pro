@@ -7,6 +7,7 @@ on:
 jobs:
   enhance:
     permissions:
+      contents: read
       issues: write
     uses: fvalenzuela-dev/.github/.github/workflows/issue-quality-enhancer.yml@main
     with:
