@@ -25,6 +25,9 @@ on:
 
 jobs:
   enhance-issue:
+    permissions:
+      contents: read
+      issues: write
     uses: fvalenzuela-dev/.github/.github/workflows/issue-quality-enhancer2.yml@main
     with:
       issue_number: ${{ github.event.issue.number }}
