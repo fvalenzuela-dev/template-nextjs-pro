@@ -23,8 +23,7 @@ on:
 jobs:
   docs:
     permissions:
-      contents: read
-      contents: rwrited
+      contents: write
       pull-requests: write
     uses: fvalenzuela-dev/.github/.github/workflows/continuous-docs.yml@main
     with:
