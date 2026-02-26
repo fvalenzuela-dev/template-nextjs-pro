@@ -34,3 +34,4 @@ jobs:
     secrets:
       # Pasa el secreto necesario (debes tenerlo configurado en el repo origen o en la organización)
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GH_PAT: ${{ secrets.GH_PAT }}
