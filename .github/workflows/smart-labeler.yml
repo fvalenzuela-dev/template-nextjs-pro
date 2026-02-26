@@ -16,12 +16,6 @@ jobs:
     with:
       pr_number: ${{ github.event.pull_request.number }}
       pr_title: ${{ github.event.pull_request.title }}
-      pr_author: ${{ github.event.pull_request.user.login }}
-      pr_body: ${{ github.event.pull_request.body }}
-      issue_number: ${{ github.event.issue.number }}
-      issue_title: ${{ github.event.issue.title }}
-      issue_author: ${{ github.event.issue.user.login }}
-      issue_body: ${{ github.event.issue.body }}
     secrets:
       # Pasa el secreto necesario (debes tenerlo configurado en el repo origen o en la organización)
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
