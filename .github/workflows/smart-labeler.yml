@@ -8,6 +8,10 @@ on:
 
 jobs:
   label:
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
     uses: fvalenzuela-dev/.github/.github/workflows/smart-labeler.yml@main
     with:
       item_type: ${{ github.event_name == 'issues' && 'issue' || 'pull_request' }}
