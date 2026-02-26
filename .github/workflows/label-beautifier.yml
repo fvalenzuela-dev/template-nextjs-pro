@@ -16,6 +16,7 @@ jobs:
   beautify:
     permissions:
       contents: write  # Necesario para modificar etiquetas
+      issues: write
     uses: fvalenzuela-dev/.github/.github/workflows/label-beautifier.yml@main
     with:
       dry_run: ${{ inputs.dry_run }}
