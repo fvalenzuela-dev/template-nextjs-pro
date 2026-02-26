@@ -25,6 +25,9 @@ on:
 
 jobs:
   suggest:
+    permissions:
+      contents: read
+      discussions: write
     uses: fvalenzuela-dev/.github/.github/workflows/the-suggester-discussion-mode.yml@main
     with:
       suggestion_type: ${{ inputs.suggestion_type }}
