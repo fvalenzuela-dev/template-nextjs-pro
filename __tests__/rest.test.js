@@ -3,5 +3,5 @@ function rest(a, b) {
 }
 
 test('rest two numbers', () => {
-  expect(sum(7, 3)).toBe(4);
+  expect(rest(7, 3)).toBe(4);
 });
