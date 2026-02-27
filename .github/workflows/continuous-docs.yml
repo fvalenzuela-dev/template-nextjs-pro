@@ -33,5 +33,5 @@ jobs:
       base_ref: ${{ github.event.pull_request.base.ref }}
       head_ref: ${{ github.event.pull_request.head.ref }}
     secrets:
-      # Pasa el secreto necesario (debes tenerlo configurado en el repo origen o en la organización)
+      # Pasa el secreto necesario (debes tenerlo configurado en el repo origenes o en la organización)
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
