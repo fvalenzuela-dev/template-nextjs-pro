@@ -18,7 +18,7 @@ jobs:
       GITHUB_TOKEN_CUSTOM: ${{ secrets.GITHUB_TOKEN }}
 
   # ----------------------------------------------------
-  # PASO 2: Run Tests + Upload Coverages to Codacys
+  # PASO 2: Run Tests + Upload Coverages to Codacys prueba
   # ----------------------------------------------------
   build_and_test:
     runs-on: ubuntu-latest
