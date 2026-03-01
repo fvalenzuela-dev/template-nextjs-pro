@@ -2,11 +2,9 @@
 # 1. VARIABLES - AJUSTA EL NUEVO REPO
 # ==========================================
 PROJECT_ID="xxxxxxxx-dev-deploy"
-REGION="us-central1"
 POOL_ID="github-frontend-pol-dev"
 SA_NAME="github-deploy-sa-frontend-dev" # Puedes usar la misma o una nueva
-REPO_FULL_NAME="fvalenzuela-dev/NUEVO-REPOSOTORIO" 
-REPO_ARTIFACT="frontend-react-repo-dev" # El artifact registry ya creado
+REPO_FULL_NAME="fvalenzuela-dev/NUEVO-REPOSITORIO" 
 
 PROJECT_NUMBER=$(gcloud projects describe ${PROJECT_ID} --format='value(projectNumber)')
 SA_EMAIL="${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
